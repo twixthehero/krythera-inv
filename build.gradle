@@ -6,7 +6,7 @@ group 'com.krythera'
 
 def major = 0
 def minor = 0
-def patch = 1
+def patch = 2
 version "$major.$minor.$patch"
 
 repositories {
@@ -15,4 +15,16 @@ repositories {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    def junitVersion = '5.7.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
+
+    def truthVersion = '1.1'
+    testCompile group: 'com.google.truth', name: 'truth', version: truthVersion
+    testCompile group: 'com.google.truth.extensions', name: 'truth-java8-extension', version: truthVersion
+}
+
+test {
+    useJUnitPlatform()
 }
