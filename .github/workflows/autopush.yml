@@ -29,4 +29,4 @@ jobs:
       - name: Run tests
         run: |
           cd $GITHUB_WORKSPACE
-          ./gradle test
+          ./gradlew test
