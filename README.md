@@ -1,14 +1,16 @@
-Krythera Inv - an [infinite] inventory system
+![Autopush](https://github.com/twixthehero/krythera-inv/workflows/Autopush%20CI/badge.svg)
+
+# Krythera Inv - an [infinite] inventory system
 
 ---
 
-# Concepts
+## Concepts
 
 `Item` - A single instance which contains shared data about an item.
 
 `ItemStack` - Holds an amount of `Item`.
 
-# Usage
+## Usage
 
 Any class implementing `com.krythera.inv.IItem` is compatible with this library.
 
@@ -57,6 +59,6 @@ fun main() {
 |0 < x < `Long.MAX_VALUE`|`ItemStack`|
 |0 < x < ∞|`BigItemStack`|
 
-# License
+## License
 
 MIT
