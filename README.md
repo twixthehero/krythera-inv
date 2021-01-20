@@ -55,6 +55,7 @@ fun main() {
 |---|---|
 |0 < x < `IItem.maxStackSize()`|`LimitedSizeItemStack`|
 |0 < x < `Long.MAX_VALUE`|`ItemStack`|
+|0 < x < ∞|`BigItemStack`|
 
 # License
 
