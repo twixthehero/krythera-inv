@@ -9,6 +9,8 @@
 
 `ItemStack` - Holds an amount of `Item`.
 
+`Container` - Holds multiple `ItemStack`s in an array with convenient access.
+
 ## Usage
 
 Any class implementing `com.krythera.inv.IItem` is compatible with this library.
@@ -20,9 +22,9 @@ import com.krythera.inv.IItem
 
 class ItemSand : IItem() {
     override fun id() = "id-sand"
-    
+
     override fun maxStackSize() = 2500L
-    
+
     override fun toString() = "Sand[maxStackSize=${maxStackSize()}]"
 }
 
