@@ -65,6 +65,13 @@ class ItemStackTests {
     }
 
     @Test
+    fun `empty clears the stack`() {
+        val stack = ItemStack(testItem, 1)
+        stack.empty()
+        assertThat(stack).isEqualTo(ItemStack.EMPTY)
+    }
+
+    @Test
     fun `copy returns new instance`() {
         val stack = ItemStack(testItem)
         assertThat(stack.copy() !== stack).isTrue()

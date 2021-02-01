@@ -53,6 +53,13 @@ class BigItemStackTests {
     }
 
     @Test
+    fun `empty clears the stack`() {
+        val stack = BigItemStack(testItem, BigInteger.ONE)
+        stack.empty()
+        assertThat(stack).isEqualTo(BigItemStack.EMPTY)
+    }
+
+    @Test
     fun `is never full`() {
         val stack = BigItemStack(testItem, BigInteger.ONE)
         assertThat(stack.isFull()).isFalse()

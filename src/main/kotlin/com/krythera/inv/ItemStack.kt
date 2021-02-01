@@ -50,6 +50,13 @@ open class ItemStack(initialItem: IItem, initialSize: Long = 1) {
         }
     }
 
+    /** Sets this [ItemStack] to [EMPTY]. */
+    open fun empty() {
+        size = 0L
+
+        checkEmpty()
+    }
+
     /** Create and return a copy of this [ItemStack]. */
     open fun copy() = ItemStack(item, size)
 
@@ -72,6 +79,6 @@ open class ItemStack(initialItem: IItem, initialSize: Long = 1) {
     }
 
     companion object {
-        val EMPTY = ItemStack(Item.NONE)
+        val EMPTY = ItemStack(Item.NONE, 0)
     }
 }

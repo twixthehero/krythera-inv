@@ -54,6 +54,14 @@ class BigItemStack(item: IItem, amount: BigInteger = BigInteger.ONE) :
         }
     }
 
+    /** Sets this [BigItemStack] to [EMPTY]. */
+    override fun empty() {
+        size = 0
+        stacks = BigInteger.ZERO
+
+        checkEmpty()
+    }
+
     /** Whether this stack is full. */
     override fun isFull() = false
 
@@ -70,6 +78,6 @@ class BigItemStack(item: IItem, amount: BigInteger = BigInteger.ONE) :
     }
 
     companion object {
-        val EMPTY = BigItemStack(Item.NONE)
+        val EMPTY = BigItemStack(Item.NONE, BigInteger.ZERO)
     }
 }
