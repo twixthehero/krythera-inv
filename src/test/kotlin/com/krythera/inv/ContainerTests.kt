@@ -14,29 +14,29 @@ class ContainerTests {
         assertThat(container.size()).isEqualTo(5)
     }
 
+    @ExperimentalUnsignedTypes
+    @Test
+    fun `add does nothing when full`() {
+        val container = Container(1)
+        container.add(ItemStack(testItem, Long.MAX_VALUE))
+
+        val refStack = ItemStack(testItem, Long.MAX_VALUE)
+        container.add(refStack)
+
+        assertThat(refStack.isFull())
+    }
+
+    @ExperimentalUnsignedTypes
     @Test
     fun `add when empty goes in first slot`() {
-        val container = Container()
+        val container = Container(2)
         container.add(ItemStack(testItem))
 
         val firstSlot = container.get(0)
         assertThat(firstSlot.item).isEqualTo(testItem)
     }
 
-    @Test
-    fun `add goes to multiple slots`() {
-        val container = Container(2)
-        container.add(ItemStack(testItem, 15))
-
-        val firstSlot = container.get(0)
-        assertThat(firstSlot.item).isEqualTo(testItem)
-        assertThat(firstSlot.size).isEqualTo(testItem.maxStackSize())
-
-        val secondSlot = container.get(1)
-        assertThat(secondSlot.item).isEqualTo(testItem)
-        assertThat(secondSlot.size).isEqualTo(5)
-    }
-
+    @ExperimentalUnsignedTypes
     @Test
     fun `add modifies input stack`() {
         val container = Container(1)
@@ -49,22 +49,29 @@ class ContainerTests {
     }
 
     @Test
-    fun `add leaves remainder in input stack`() {
-        val container = Container(1)
-        container.add(ItemStack(testItem, 5))
+    fun `set stores stack into specific slot`() {
+        val container = Container(2)
+        container.set(1, ItemStack(testItem, 5))
+        val stack = container.get(1)
 
-        val refStack = ItemStack(testItem, 10)
-        container.add(refStack)
-
-        assertThat(refStack.isEmpty()).isFalse()
-        assertThat(refStack.size).isEqualTo(5)
+        assertThat(stack).isEqualTo(ItemStack(testItem, 5))
     }
 
-    // TODO(max): add set tests
+    @ExperimentalUnsignedTypes
+    @Test
+    fun `set returns last stack from specific slot`() {
+        val container = Container(2)
+        container.add(ItemStack(testItem, 5))
+        container.add(ItemStack(testItemMaxStack, 5))
+        val lastStack = container.set(1, ItemStack(testItem, 5))
 
+        assertThat(lastStack).isEqualTo(ItemStack(testItemMaxStack, 5))
+    }
+
+    @ExperimentalUnsignedTypes
     @Test
     fun `get returns correct ItemStack`() {
-        val container = Container(1)
+        val container = Container(2)
         container.add(ItemStack(testItem, 5))
         container.add(ItemStack(testItemMaxStack, 10))
 
@@ -72,9 +79,10 @@ class ContainerTests {
         assertThat(secondSlot).isEqualTo(ItemStack(testItemMaxStack, 10))
     }
 
+    @ExperimentalUnsignedTypes
     @Test
     fun `remove returns the correct ItemStack`() {
-        val container = Container(1)
+        val container = Container(2)
         container.add(ItemStack(testItem, 5))
         container.add(ItemStack(testItemMaxStack, 10))
 
@@ -84,6 +92,7 @@ class ContainerTests {
         assertThat(container.get(1)).isEqualTo(ItemStack.EMPTY)
     }
 
+    @ExperimentalUnsignedTypes
     @Test
     fun `count returns three without overflow`() {
         val container = Container(1)
@@ -94,6 +103,7 @@ class ContainerTests {
         assertThat(result.hasOverflow).isFalse()
     }
 
+    @ExperimentalUnsignedTypes
     @Test
     fun `count returns MAX_VALUE with overflow`() {
         val container = Container(2)
@@ -105,6 +115,7 @@ class ContainerTests {
         assertThat(result.hasOverflow).isTrue()
     }
 
+    @ExperimentalUnsignedTypes
     @Test
     fun `countLarge returns under MAX_VALUE`() {
         val container = Container(2)
@@ -114,6 +125,7 @@ class ContainerTests {
         assertThat(result).isEqualTo(BigInteger.valueOf(5))
     }
 
+    @ExperimentalUnsignedTypes
     @Test
     fun `countLarge returns two times MAX_VALUE`() {
         val container = Container(2)
@@ -125,6 +137,7 @@ class ContainerTests {
         assertThat(result).isEqualTo(max.add(max))
     }
 
+    @ExperimentalUnsignedTypes
     @Test
     fun `removeAmount returns 3`() {
         val container = Container(1)
@@ -137,6 +150,7 @@ class ContainerTests {
         assertThat(slot).isEqualTo(ItemStack(testItem, 2))
     }
 
+    @ExperimentalUnsignedTypes
     @Test
     fun `removeAmount returns all`() {
         val container = Container(1)
@@ -149,6 +163,7 @@ class ContainerTests {
         assertThat(slot.isEmpty()).isTrue()
     }
 
+    @ExperimentalUnsignedTypes
     @Test
     fun `removeAmountLarge returns less than MAX_VALUE`() {
         val container = Container(1)
@@ -159,6 +174,7 @@ class ContainerTests {
         assertThat(result).isEqualTo(BigItemStack(testItem, remove))
     }
 
+    @ExperimentalUnsignedTypes
     @Test
     fun `removeAmountLarge returns more than MAX_VALUE`() {
         val container = Container(2)
@@ -178,7 +194,7 @@ class ContainerTests {
     }
 
     private class ItemTestMaxStack : Item() {
-        override fun id() = "test id"
+        override fun id() = "test id max stack"
 
         override fun maxStackSize() = Long.MAX_VALUE
     }

@@ -5,7 +5,7 @@ import java.util.Objects
 
 /** Tracks the number of items in a stack. Can handle infinitely big stacks. */
 class BigItemStack(item: IItem, amount: BigInteger = BigInteger.ONE) :
-    ItemStack(item, amount.mod(BigInteger.valueOf(Long.MAX_VALUE)).longValueExact()) {
+    ItemStack(item, amount.mod(BigInteger.valueOf(Long.MAX_VALUE)).longValueExact(), false) {
     private var stacks = amount.div(BigInteger.valueOf(Long.MAX_VALUE))
 
     fun fullSize(): BigInteger =
@@ -71,16 +71,19 @@ class BigItemStack(item: IItem, amount: BigInteger = BigInteger.ONE) :
     /** Whether this stack is full. */
     override fun isFull() = false
 
+    /** Whether there are no [IItem]s in this stack. */
+    override fun isEmpty() = stacks == BigInteger.ZERO && size == 0L
+
     override fun equals(other: Any?): Boolean {
         if (other !is BigItemStack) {
             return false
         }
 
-        return item == other.item && size == other.size && stacks == other.stacks
+        return item == other.item && fullSize() == other.fullSize()
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(item, size, stacks)
+        return Objects.hash(item, fullSize())
     }
 
     companion object {

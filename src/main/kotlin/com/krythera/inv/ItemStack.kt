@@ -3,14 +3,16 @@ package com.krythera.inv
 import java.util.Objects
 
 /** Tracks the number of items in a stack ignoring maximum stack size. */
-open class ItemStack(initialItem: IItem, initialSize: Long = 1) {
+open class ItemStack(initialItem: IItem, initialSize: Long = 1, checkEmptyInitially: Boolean = true) {
     var item: IItem = initialItem
         protected set
     var size: Long = initialSize
         protected set
 
     init {
-        checkEmpty()
+        if (checkEmptyInitially) {
+            checkEmpty()
+        }
     }
 
     /** Increases the stack size by [amount]. */
@@ -72,7 +74,7 @@ open class ItemStack(initialItem: IItem, initialSize: Long = 1) {
     open fun isFull() = size == Long.MAX_VALUE
 
     /** Whether there are no [IItem]s in this stack. */
-    fun isEmpty() = item == Item.NONE
+    open fun isEmpty() = item == Item.NONE
 
     override fun equals(other: Any?): Boolean {
         if (other !is ItemStack) {

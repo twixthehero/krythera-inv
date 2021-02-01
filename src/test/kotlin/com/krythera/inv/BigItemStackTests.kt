@@ -80,6 +80,21 @@ class BigItemStackTests {
         assertThat(stack.isFull()).isFalse()
     }
 
+    @Test
+    fun `isEmpty with no stacks`() {
+        val stack = BigItemStack(testItem, BigInteger.ZERO)
+        assertThat(stack.isEmpty()).isTrue()
+    }
+
+    @Test
+    fun `is not empty with stacks`() {
+        val stack = BigItemStack(
+            testItem,
+            BigInteger.valueOf(Long.MAX_VALUE).add(BigInteger.valueOf(Long.MAX_VALUE))
+        )
+        assertThat(stack.isEmpty()).isFalse()
+    }
+
     private class ItemTest : Item() {
         override fun id() = "test id"
 

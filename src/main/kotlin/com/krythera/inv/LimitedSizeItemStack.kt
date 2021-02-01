@@ -57,4 +57,8 @@ class LimitedSizeItemStack(item: IItem, size: Long = 1) : ItemStack(item, size) 
     override fun hashCode(): Int {
         return Objects.hash(item, size)
     }
+
+    companion object {
+        val EMPTY = LimitedSizeItemStack(Item.NONE, 0)
+    }
 }
