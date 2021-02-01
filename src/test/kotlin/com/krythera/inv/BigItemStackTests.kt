@@ -1,6 +1,7 @@
 package com.krythera.inv
 
 import com.google.common.truth.Truth.assertThat
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import java.math.BigInteger
 
@@ -53,10 +54,24 @@ class BigItemStackTests {
     }
 
     @Test
+    fun `fill throws`() {
+        assertThrows(Exception::class.java) {
+            BigItemStack(testItem).fill()
+        }
+    }
+
+    @Test
     fun `empty clears the stack`() {
         val stack = BigItemStack(testItem, BigInteger.ONE)
         stack.empty()
         assertThat(stack).isEqualTo(BigItemStack.EMPTY)
+    }
+
+    @Test
+    fun `sizeLeft throws`() {
+        assertThrows(Exception::class.java) {
+            BigItemStack(testItem).sizeLeft()
+        }
     }
 
     @Test

@@ -65,10 +65,23 @@ class ItemStackTests {
     }
 
     @Test
+    fun `fill maxes the stack`() {
+        val stack = ItemStack(testItem, 1)
+        stack.fill()
+        assertThat(stack.size).isEqualTo(Long.MAX_VALUE)
+    }
+
+    @Test
     fun `empty clears the stack`() {
         val stack = ItemStack(testItem, 1)
         stack.empty()
         assertThat(stack).isEqualTo(ItemStack.EMPTY)
+    }
+
+    @Test
+    fun `sizeLeft returns correct value`() {
+        val stack = ItemStack(testItem, 3)
+        assertThat(stack.sizeLeft()).isEqualTo(Long.MAX_VALUE - stack.size)
     }
 
     @Test

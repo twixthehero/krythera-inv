@@ -22,6 +22,19 @@ class LimitedSizeItemStackTests {
     }
 
     @Test
+    fun `sizeLeft returns correct value`() {
+        val stack = LimitedSizeItemStack(testItem, 3)
+        assertThat(stack.sizeLeft()).isEqualTo(testItem.maxStackSize() - stack.size)
+    }
+
+    @Test
+    fun `fill maxes the stack`() {
+        val stack = LimitedSizeItemStack(testItem, 1)
+        stack.fill()
+        assertThat(stack.size).isEqualTo(testItem.maxStackSize())
+    }
+
+    @Test
     fun `copy returns new instance`() {
         val stack = LimitedSizeItemStack(testItem)
         assertThat(stack.copy() !== stack).isTrue()

@@ -32,6 +32,14 @@ class LimitedSizeItemStack(item: IItem, size: Long = 1) : ItemStack(item, size) 
         }
     }
 
+    /** Fills this [LimitedSizeItemStack] to max capacity. */
+    override fun fill() {
+        size = item.maxStackSize()
+    }
+
+    /** How much more this [LimitedSizeItemStack] can store. */
+    override fun sizeLeft(): Long = item.maxStackSize() - size
+
     /** Create and return a copy of this [LimitedSizeItemStack]. */
     override fun copy(): ItemStack = LimitedSizeItemStack(item, size)
 

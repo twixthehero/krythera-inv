@@ -50,12 +50,20 @@ open class ItemStack(initialItem: IItem, initialSize: Long = 1) {
         }
     }
 
+    /** Fills this [ItemStack] to max capacity. */
+    open fun fill() {
+        size = Long.MAX_VALUE
+    }
+
     /** Sets this [ItemStack] to [EMPTY]. */
     open fun empty() {
         size = 0L
 
         checkEmpty()
     }
+
+    /** How much more this [ItemStack] can store. */
+    open fun sizeLeft(): Long = Long.MAX_VALUE - size
 
     /** Create and return a copy of this [ItemStack]. */
     open fun copy() = ItemStack(item, size)

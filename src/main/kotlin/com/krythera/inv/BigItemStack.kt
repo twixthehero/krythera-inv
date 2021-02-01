@@ -54,6 +54,9 @@ class BigItemStack(item: IItem, amount: BigInteger = BigInteger.ONE) :
         }
     }
 
+    /** Operation undefined. Infinite size. */
+    override fun fill() = throw Exception("Operation undefined: fill()")
+
     /** Sets this [BigItemStack] to [EMPTY]. */
     override fun empty() {
         size = 0
@@ -61,6 +64,9 @@ class BigItemStack(item: IItem, amount: BigInteger = BigInteger.ONE) :
 
         checkEmpty()
     }
+
+    /** Operation undefined. Infinite size. */
+    override fun sizeLeft(): Long = throw Exception("Operation undefined: sizeLeft()")
 
     /** Whether this stack is full. */
     override fun isFull() = false
