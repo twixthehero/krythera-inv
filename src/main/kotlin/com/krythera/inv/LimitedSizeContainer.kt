@@ -20,10 +20,14 @@ class LimitedSizeContainer(size: Int = 10) {
         return LimitedSizeItemStack.EMPTY
     }
 
+    /**
+     * Returns the index of the first slot which contains [item] and is not full, or -1 otherwise.
+     */
     private fun findFirstNotFilled(item: IItem): Int {
         return -1
     }
 
+    /** Returns the index of the first empty slot, or -1 otherwise. */
     private fun findFirstEmpty(): Int {
         return -1
     }
@@ -40,7 +44,7 @@ class LimitedSizeContainer(size: Int = 10) {
     /**
      * Store [stack] into slot [index] and return the replaced [ItemStack].
      *
-     * If [index] is out of bounds, [LimitedSizeItemStack.EMPTY] is returned.
+     * If [index] is out of bounds, [stack] is returned.
      */
     fun set(index: Int, stack: LimitedSizeItemStack): LimitedSizeItemStack {
         return LimitedSizeItemStack.EMPTY
@@ -65,7 +69,8 @@ class LimitedSizeContainer(size: Int = 10) {
 
     /**
      * Counts the amount of [item] in this [Container].
-     * Use to count amounts bigger than [Long.MAX_VALUE].
+     *
+     * Use this to count amounts bigger than [Long.MAX_VALUE].
      */
     fun countLarge(item: IItem): BigInteger {
         return BigInteger.ZERO

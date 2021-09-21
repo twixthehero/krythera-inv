@@ -21,7 +21,21 @@ class Container(size: Int = 10) {
     }
 
     /**
+     * Returns the index of the first slot which contains [item] and is not full, or -1 otherwise.
+     */
+    private fun findFirstNotFilled(item: IItem): Int {
+        return -1
+    }
+
+    /** Returns the index of the first empty slot, or -1 otherwise. */
+    private fun findFirstEmpty(): Int {
+        return -1
+    }
+
+    /**
      * Create and return a copy of the [ItemStack] at slot [index].
+     *
+     * If [index] is out of bounds, [ItemStack.EMPTY] is returned.
      */
     fun get(index: Int): ItemStack {
         return ItemStack.EMPTY
@@ -29,6 +43,8 @@ class Container(size: Int = 10) {
 
     /**
      * Store [stack] into slot [index] and return the replaced [ItemStack].
+     *
+     * If [index] is out of bounds, [stack] is returned.
      */
     fun set(index: Int, stack: ItemStack): ItemStack {
         return ItemStack.EMPTY
@@ -36,6 +52,8 @@ class Container(size: Int = 10) {
 
     /**
      * Remove from this [Container] and return the [ItemStack] at slot [index].
+     *
+     * If [index] is out of bounds, [ItemStack.EMPTY] is returned.
      */
     fun remove(index: Int): ItemStack {
         return ItemStack.EMPTY
@@ -55,7 +73,8 @@ class Container(size: Int = 10) {
 
     /**
      * Counts the amount of [item] in this [Container].
-     * Use to count amounts bigger than Long.MAX_VALUE.
+     *
+     * Use this to count amounts bigger than [Long.MAX_VALUE].
      */
     fun countLarge(item: IItem): BigInteger {
         return BigInteger.ZERO

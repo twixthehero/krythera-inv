@@ -95,6 +95,18 @@ class LimitedSizeContainerTests {
         assertThat(lastStack).isEqualTo(LimitedSizeItemStack(testItemMaxStack, 5))
     }
 
+    @Test
+    fun `set returns the input stack if out of bounds`() {
+        val container = LimitedSizeContainer(2)
+        val input = LimitedSizeItemStack(testItem, 5)
+
+        var got = container.set(-1, input)
+        assertThat(got).isEqualTo(input)
+
+        got = container.set(container.size(), input)
+        assertThat(got).isEqualTo(input)
+    }
+
     @ExperimentalUnsignedTypes
     @Test
     fun `get returns correct ItemStack`() {
@@ -104,6 +116,17 @@ class LimitedSizeContainerTests {
 
         val secondSlot = container.get(1)
         assertThat(secondSlot).isEqualTo(LimitedSizeItemStack(testItemMaxStack, 10))
+    }
+
+    @Test
+    fun `get returns empty ItemStack when out of bounds`() {
+        val container = LimitedSizeContainer(2)
+
+        var got = container.get(-1)
+        assertThat(got).isEqualTo(LimitedSizeItemStack.EMPTY)
+
+        got = container.get(container.size())
+        assertThat(got).isEqualTo(LimitedSizeItemStack.EMPTY)
     }
 
     @ExperimentalUnsignedTypes
@@ -117,6 +140,17 @@ class LimitedSizeContainerTests {
         assertThat(secondSlot).isEqualTo(LimitedSizeItemStack(testItemMaxStack, 10))
 
         assertThat(container.get(1)).isEqualTo(LimitedSizeItemStack.EMPTY)
+    }
+
+    @Test
+    fun `remove returns empty ItemStack when out of bounds`() {
+        val container = LimitedSizeContainer(2)
+
+        var got = container.remove(-1)
+        assertThat(got).isEqualTo(LimitedSizeItemStack.EMPTY)
+
+        got = container.remove(container.size())
+        assertThat(got).isEqualTo(LimitedSizeItemStack.EMPTY)
     }
 
     @ExperimentalUnsignedTypes
